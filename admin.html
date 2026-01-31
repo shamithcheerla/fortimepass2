@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | SITE-EMAR 2026</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. CSS VARIABLES (MATCHING REGISTRATION.HTML)
+           ========================================= */
+        :root {
+            /* Brand Colors */
+            --primary-red: #D32F2F;
+            --dark-red: #B71C1C;
+            --light-red: #FFEBEE;
+            --hover-red: #FFCDD2;
+            --accent-red: #FF5252;
+
+            /* Neutrals */
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --light-gray: #EEEEEE;
+            --medium-gray: #E0E0E0;
+            --dark-gray: #757575;
+            --text-dark: #212121;
+            --text-gray: #616161;
+            --success-green: #2E7D32;
+            --error-red: #C62828;
+            --warning-orange: #F57C00;
+            --warning-bg: #FFF3E0;
+
+            /* Shadows & Effects */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+            --shadow-red: 0 8px 16px rgba(211, 47, 47, 0.25);
+
+            /* Typography */
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Merriweather', serif;
+
+            /* Transitions */
+            --trans-fast: 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        body {
+            font-family: var(--font-heading);
+            background-color: var(--off-white);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--text-dark);
+        }
+
+        .btn-logout {
+            padding: 10px 20px;
+            background: var(--light-red);
+            color: var(--primary-red);
+            border: 1px solid var(--primary-red);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: var(--trans-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: var(--primary-red);
+            color: var(--white);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-red);
+        }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--medium-gray);
+            transition: var(--trans-fast);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Stat Colors */
+        .stat-card.total {
+            border-color: var(--text-dark);
+        }
+
+        .stat-card.pending {
+            border-color: var(--warning-orange);
+        }
+
+        .stat-card.accepted {
+            border-color: var(--success-green);
+        }
+
+        .stat-card.rejected {
+            border-color: var(--error-red);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .stat-card.total .stat-icon {
+            background: var(--light-gray);
+            color: var(--text-dark);
+        }
+
+        .stat-card.pending .stat-icon {
+            background: var(--warning-bg);
+            color: var(--warning-orange);
+        }
+
+        .stat-card.accepted .stat-icon {
+            background: #E8F5E9;
+            color: var(--success-green);
+        }
+
+        .stat-card.rejected .stat-icon {
+            background: var(--light-red);
+            color: var(--error-red);
+        }
+
+        .stat-details h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .stat-details p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Controls */
+        .controls {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--trans-fast);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 4px var(--light-red);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-gray);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            background: var(--off-white);
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .filter-tab {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            color: var(--text-gray);
+            transition: var(--trans-fast);
+        }
+
+        .filter-tab:hover {
+            color: var(--primary-red);
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-tab.active {
+            background: var(--white);
+            color: var(--primary-red);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Submissions Grid */
+        .submissions-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .submission-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            transition: var(--trans-fast);
+            border: 1px solid transparent;
+        }
+
+        .submission-card:hover {
+            border-color: var(--medium-gray);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .submission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--light-red);
+            color: var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .user-info h3 {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .user-info .email {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-badge.pending {
+            background: var(--warning-bg);
+            color: var(--warning-orange);
+        }
+
+        .status-badge.accepted {
+            background: #E8F5E9;
+            color: var(--success-green);
+        }
+
+        .status-badge.rejected {
+            background: var(--light-red);
+            color: var(--error-red);
+        }
+
+        .submission-body {
+            margin-bottom: 20px;
+        }
+
+        .abstract-box {
+            background: var(--off-white);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .file-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            background: var(--white);
+        }
+
+        .pdf-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--error-red);
+            color: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .submission-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            cursor: pointer;
+            transition: var(--trans-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .btn-download {
+            background: var(--text-dark);
+            color: var(--white);
+        }
+
+        .btn-download:hover {
+            background: #000;
+        }
+
+        .btn-accept {
+            background: var(--success-green);
+            color: var(--white);
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2);
+        }
+
+        .btn-accept:hover {
+            transform: translateY(-2px);
+            background: #1B5E20;
+        }
+
+        .btn-reject {
+            background: var(--white);
+            color: var(--error-red);
+            border: 1px solid var(--error-red);
+        }
+
+        .btn-reject:hover {
+            background: var(--light-red);
+        }
+
+        .btn:disabled {
+            background: var(--medium-gray);
+            color: var(--text-gray);
+            border-color: transparent;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .no-submissions {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-gray);
+            background: var(--white);
+            border-radius: 12px;
+            border: 2px dashed var(--medium-gray);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .filter-tabs {
+                width: 100%;
+                overflow-x: auto;
+            }
+
+            .submission-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .submission-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="sasi.png" alt="SASI" height="40" onerror="this.style.display='none'">
+                SITE-EMAR <span>2026 Admin</span>
+            </div>
+            <button class="btn-logout" onclick="logout()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 class="page-title">Paper Submission Dashboard</h2>
+
+        <div class="stats-grid">
+            <div class="stat-card total">
+                <div class="stat-icon">📄</div>
+                <div class="stat-details">
+                    <h3 id="totalCount">0</h3>
+                    <p>Total Submissions</p>
+                </div>
+            </div>
+            <div class="stat-card pending">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-details">
+                    <h3 id="pendingCount">0</h3>
+                    <p>Pending Review</p>
+                </div>
+            </div>
+            <div class="stat-card accepted">
+                <div class="stat-icon">✓</div>
+                <div class="stat-details">
+                    <h3 id="acceptedCount">0</h3>
+                    <p>Papers Accepted</p>
+                </div>
+            </div>
+            <div class="stat-card rejected">
+                <div class="stat-icon">✕</div>
+                <div class="stat-details">
+                    <h3 id="rejectedCount">0</h3>
+                    <p>Papers Rejected</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="search-box">
+                <div class="search-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </div>
+                <input type="text" id="searchInput" placeholder="Search by author name or email..."
+                    oninput="filterSubmissions()">
+            </div>
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all" onclick="setFilter('all')">All Papers</button>
+                <button class="filter-tab" data-filter="pending" onclick="setFilter('pending')">Pending</button>
+                <button class="filter-tab" data-filter="accepted" onclick="setFilter('accepted')">Accepted</button>
+                <button class="filter-tab" data-filter="rejected" onclick="setFilter('rejected')">Rejected</button>
+            </div>
+        </div>
+
+        <div class="submissions-grid" id="submissionsGrid">
+        </div>
+    </div>
+
+    <script>
+        let allSubmissions = [];
+        let currentFilter = 'all';
+
+        // Check authentication on page load
+        window.addEventListener('load', function () {
+            const userStr = localStorage.getItem('currentUser');
+            if (!userStr) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const currentUser = JSON.parse(userStr);
+            if (currentUser.role !== 'admin') {
+                alert('Access denied! Admin only.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            loadSubmissions();
+        });
+
+        // Load all submissions
+        function loadSubmissions() {
+            allSubmissions = JSON.parse(localStorage.getItem('paperSubmissions') || '[]');
+            updateStatistics();
+            displaySubmissions();
+        }
+
+        // Update statistics
+        function updateStatistics() {
+            const total = allSubmissions.length;
+            const pending = allSubmissions.filter(s => s.status === 'pending').length;
+            const accepted = allSubmissions.filter(s => s.status === 'accepted').length;
+            const rejected = allSubmissions.filter(s => s.status === 'rejected').length;
+
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('pendingCount').textContent = pending;
+            document.getElementById('acceptedCount').textContent = accepted;
+            document.getElementById('rejectedCount').textContent = rejected;
+        }
+
+        // Display submissions
+        function displaySubmissions() {
+            const grid = document.getElementById('submissionsGrid');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+            let filtered = allSubmissions;
+
+            // Filter by status
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(s => s.status === currentFilter);
+            }
+
+            // Filter by search
+            if (searchTerm) {
+                filtered = filtered.filter(s =>
+                    (s.userName && s.userName.toLowerCase().includes(searchTerm)) ||
+                    (s.userEmail && s.userEmail.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-submissions">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--text-gray); margin-bottom:15px;">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                        <h3>No submissions found</h3>
+                        <p>There are no paper submissions matching your criteria.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(submission => `
+                <div class="submission-card" data-id="${submission.id}">
+                    <div class="submission-header">
+                        <div class="user-profile">
+                            <div class="avatar">${submission.userName ? submission.userName.charAt(0).toUpperCase() : 'U'}</div>
+                            <div class="user-info">
+                                <h3>${submission.userName || 'Unknown User'}</h3>
+                                <div class="email">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                    ${submission.userEmail || 'N/A'}
+                                </div>
+                            </div>
+                        </div>
+                        <span class="status-badge ${submission.status}">
+                            ${getStatusIcon(submission.status)}
+                            ${submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
+                        </span>
+                    </div>
+
+                    <div class="submission-body">
+                        <div class="abstract-box">
+                             <strong>Abstract:</strong> ${submission.abstract ? (submission.abstract.substring(0, 200) + '...') : 'No abstract provided'}
+                        </div>
+
+                        ${submission.reviewComments && submission.status !== 'pending' ? `
+                            <div class="abstract-box" style="background: ${submission.status === 'accepted' ? '#E8F5E9' : 'var(--light-red)'}; border-left: 3px solid ${submission.status === 'accepted' ? 'var(--success-green)' : 'var(--error-red)'};">
+                                <strong style="color: ${submission.status === 'accepted' ? 'var(--success-green)' : 'var(--error-red)'};">Admin Comments:</strong> ${submission.reviewComments}
+                                <div style="font-size: 0.75rem; color: var(--text-gray); margin-top: 8px;">
+                                    Reviewed by: ${submission.reviewedBy || 'Admin'} on ${submission.reviewDate ? new Date(submission.reviewDate).toLocaleString() : 'N/A'}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <div class="file-row">
+                            <div class="pdf-icon">PDF</div>
+                            <div style="flex:1">
+                                <div style="font-weight:600; font-size:0.95rem;">${submission.fileName}</div>
+                                <div style="color:var(--text-gray); font-size:0.8rem;">Submitted: ${new Date(submission.submissionDate).toLocaleString()}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="submission-actions">
+                        <button class="btn btn-download" onclick="downloadPaper('${submission.id}')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Download Paper
+                        </button>
+                        <button class="btn btn-accept" onclick="updateStatus('${submission.id}', 'accepted')" ${submission.status !== 'pending' ? 'disabled' : ''}>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Accept
+                        </button>
+                        <button class="btn btn-reject" onclick="updateStatus('${submission.id}', 'rejected')" ${submission.status !== 'pending' ? 'disabled' : ''}>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            Reject
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getStatusIcon(status) {
+            if (status === 'accepted') return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+            if (status === 'rejected') return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+            return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>';
+        }
+
+        // Set filter
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.filter === filter) {
+                    tab.classList.add('active');
+                }
+            });
+            displaySubmissions();
+        }
+
+        // Filter submissions by search
+        function filterSubmissions() {
+            displaySubmissions();
+        }
+
+        // Update submission status
+        function updateStatus(submissionId, newStatus) {
+            const submission = allSubmissions.find(s => s.id === submissionId);
+            if (!submission) return;
+
+            // Prompt for review comments
+            let comment = '';
+            if (newStatus === 'accepted') {
+                comment = prompt('Enter acceptance comments (optional):', 'Your paper has been accepted for presentation.');
+                if (comment === null) return; // User cancelled
+            } else if (newStatus === 'rejected') {
+                comment = prompt('Enter rejection reason:', 'Unfortunately, your paper does not meet our current requirements.');
+                if (comment === null) return; // User cancelled
+            }
+
+            if (!confirm(`Are you sure you want to ${newStatus} this submission?`)) {
+                return;
+            }
+
+            const submissionIndex = allSubmissions.findIndex(s => s.id === submissionId);
+            if (submissionIndex === -1) return;
+
+            allSubmissions[submissionIndex].status = newStatus;
+            allSubmissions[submissionIndex].reviewedBy = 'admin@conference.com';
+            allSubmissions[submissionIndex].reviewDate = new Date().toISOString();
+            allSubmissions[submissionIndex].reviewComments = comment;
+
+            localStorage.setItem('paperSubmissions', JSON.stringify(allSubmissions));
+
+            loadSubmissions();
+        }
+
+        // Download paper
+        function downloadPaper(submissionId) {
+            const submission = allSubmissions.find(s => s.id === submissionId);
+            if (submission && submission.paperFile) {
+                const link = document.createElement('a');
+                link.href = submission.paperFile;
+                link.download = submission.fileName;
+                link.click();
+            }
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

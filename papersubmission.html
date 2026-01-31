@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Submission - SITE-EMAR 2026</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CSS VARIABLES (MATCHING REGISTRATION)
+           ========================================= */
+        :root {
+            /* Brand Colors */
+            --primary-red: #D32F2F;
+            --dark-red: #B71C1C;
+            --light-red: #FFEBEE;
+            --hover-red: #FFCDD2;
+            --accent-red: #FF5252;
+
+            /* Neutrals */
+            --white: #FFFFFF;
+            --off-white: #F9F9F9;
+            --light-gray: #EEEEEE;
+            --medium-gray: #E0E0E0;
+            --dark-gray: #757575;
+            --text-dark: #212121;
+            --text-gray: #616161;
+            --success-green: #2E7D32;
+            --error-red: #C62828;
+
+            /* Shadows & Effects */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+            --shadow-red: 0 8px 16px rgba(211, 47, 47, 0.25);
+
+            /* Typography */
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Merriweather', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-heading);
+            background: var(--off-white);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--text-dark);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--light-red);
+            color: var(--primary-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .btn-logout {
+            padding: 10px 20px;
+            background: var(--light-red);
+            color: var(--primary-red);
+            border: 1px solid var(--primary-red);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            font-family: var(--font-heading);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-logout:hover {
+            background: var(--primary-red);
+            color: var(--white);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-red);
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--primary-red);
+        }
+
+        .welcome-card h2 {
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+
+        .welcome-card .reg-id {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .user-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .detail-label {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        /* Status Card */
+        .status-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--success-green);
+        }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .status-header h3 {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+        }
+
+        .status-badge {
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge.pending {
+            background: #FFF3E0;
+            color: #F57C00;
+        }
+
+        .status-badge.accepted {
+            background: #E8F5E9;
+            color: var(--success-green);
+        }
+
+        .status-badge.rejected {
+            background: var(--light-red);
+            color: var(--error-red);
+        }
+
+        /* Progress Tracker */
+        .progress-tracker {
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--medium-gray);
+            z-index: 0;
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            background: var(--success-green);
+            transition: width 0.5s ease;
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 3px solid var(--medium-gray);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .step-circle.completed {
+            background: var(--success-green);
+            border-color: var(--success-green);
+            color: var(--white);
+        }
+
+        .step-circle.active {
+            border-color: var(--primary-red);
+            border-width: 4px;
+            background: var(--light-red);
+            color: var(--primary-red);
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        /* Submitted Paper */
+        .submitted-paper {
+            background: var(--off-white);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .submitted-paper h4 {
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .paper-file {
+            background: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--error-red);
+            color: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .file-details {
+            flex: 1;
+        }
+
+        .file-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .file-meta {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        .abstract-section {
+            margin: 15px 0;
+        }
+
+        .abstract-section strong {
+            color: var(--text-dark);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .abstract-text {
+            color: var(--text-gray);
+            line-height: 1.7;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+        }
+
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary-red);
+            color: var(--white);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-red);
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-heading);
+        }
+
+        .btn-download:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+        }
+
+        /* Submission Form */
+        .submission-form {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+            border-top: 4px solid var(--primary-red);
+        }
+
+        .submission-form h3 {
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--medium-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: var(--font-body);
+            transition: all 0.2s ease;
+            background: var(--off-white);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            background: var(--white);
+            box-shadow: 0 0 0 4px var(--light-red);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+            line-height: 1.6;
+        }
+
+        /* Upload Zone */
+        .upload-zone {
+            border: 2px dashed var(--medium-gray);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--off-white);
+        }
+
+        .upload-zone:hover {
+            border-color: var(--primary-red);
+            background: var(--light-red);
+        }
+
+        .upload-icon svg {
+            color: var(--dark-gray);
+        }
+
+        .upload-text {
+            margin-top: 15px;
+            color: var(--text-gray);
+        }
+
+        .upload-text strong {
+            color: var(--primary-red);
+        }
+
+        /* File Preview */
+        .file-preview {
+            display: none;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--off-white);
+            border: 2px solid var(--medium-gray);
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .preview-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-red);
+            color: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .preview-info {
+            flex: 1;
+        }
+
+        .preview-name {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+
+        .preview-size {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        .remove-file {
+            cursor: pointer;
+            color: var(--error-red);
+            transition: color 0.2s;
+        }
+
+        .remove-file:hover {
+            color: var(--dark-red);
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-red);
+            font-family: var(--font-heading);
+        }
+
+        .btn-submit:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:disabled {
+            background: var(--medium-gray);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .user-details {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-steps {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .progress-line {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="sasi.png" alt="SASI" height="40" onerror="this.style.display='none'">
+                SITE-EMAR <span>2026</span>
+            </div>
+            <div class="header-actions">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <span id="userName" style="font-weight: 600; color: var(--text-dark);">User</span>
+                </div>
+                <button class="btn-logout" onclick="logout()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h2 class="page-title">Paper Submission Portal</h2>
+
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+            <h2>Welcome, <span id="welcomeName">User</span>!</h2>
+            <p class="reg-id">Registration ID: <strong id="registrationId">N/A</strong></p>
+            <div class="user-details" id="userDetailsGrid"></div>
+        </div>
+
+        <!-- Status Card (shown after submission) -->
+        <div class="status-card" id="statusCard" style="display: none;">
+            <div class="status-header">
+                <h3>Submission Status</h3>
+                <span class="status-badge" id="statusBadge">pending</span>
+            </div>
+
+            <div class="progress-tracker">
+                <div class="progress-steps">
+                    <div class="progress-line">
+                        <div class="progress-line-fill" id="progressFill" style="width: 33%"></div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-circle completed" id="step1">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <span class="step-label">Submitted</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-circle" id="step2">2</div>
+                        <span class="step-label">Under Review</span>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-circle" id="step3">3</div>
+                        <span class="step-label">Decision</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="submitted-paper">
+                <h4>Your Submitted Paper</h4>
+
+                <div class="paper-file">
+                    <div class="file-icon">PDF</div>
+                    <div class="file-details">
+                        <div class="file-name" id="paperFileName">N/A</div>
+                        <div class="file-meta">Submitted: <span id="paperSubmissionDate">N/A</span></div>
+                    </div>
+                </div>
+
+                <div class="abstract-section">
+                    <strong>Abstract:</strong>
+                    <p class="abstract-text" id="paperAbstract">N/A</p>
+                </div>
+
+                <button class="btn-download" id="downloadBtn" onclick="downloadPaper()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Submission Form (shown if no paper submitted) -->
+        <div class="submission-form" id="submissionForm">
+            <h3>Submit Your Research Paper</h3>
+
+            <div class="form-group">
+                <label class="form-label">Abstract</label>
+                <textarea class="form-control" id="abstract"
+                    placeholder="Enter your paper abstract (500-1000 words)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Upload Full Paper (PDF)</label>
+                <div class="upload-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                    <input type="file" id="fileInput" accept=".pdf" style="display: none;"
+                        onchange="handleFile(this.files)">
+                    <div class="upload-icon">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <div class="upload-text">
+                        Drag & Drop your PDF here or <strong>Browse</strong>
+                        <br><small style="color: var(--text-gray);">Max size: 10MB</small>
+                    </div>
+                </div>
+
+                <div class="file-preview" id="filePreview">
+                    <div class="preview-icon">PDF</div>
+                    <div class="preview-info">
+                        <span class="preview-name" id="previewName">paper.pdf</span>
+                        <span class="preview-size" id="previewSize">0 MB</span>
+                    </div>
+                    <div class="remove-file" onclick="removeFile()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-submit" id="submitBtn" onclick="submitPaper()">
+                Submit Paper
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = null;
+        let selectedFile = null;
+
+        // Check authentication on page load
+        window.addEventListener('load', function () {
+            const userStr = localStorage.getItem('currentUser');
+            if (!userStr) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            currentUser = JSON.parse(userStr);
+            if (currentUser.role === 'admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            loadUserData();
+            checkExistingSubmission();
+        });
+
+        // Load user data
+        function loadUserData() {
+            const avatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            const welcomeName = document.getElementById('welcomeName');
+            const registrationId = document.getElementById('registrationId');
+            const userDetailsGrid = document.getElementById('userDetailsGrid');
+
+            const initials = currentUser.fullName ? currentUser.fullName.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) : 'U';
+            avatar.textContent = initials;
+            userName.textContent = currentUser.fullName || 'User';
+            welcomeName.textContent = currentUser.fullName || 'User';
+            registrationId.textContent = currentUser.id || 'N/A';
+
+            userDetailsGrid.innerHTML = `
+                <div class="detail-item">
+                    <span class="detail-label">Email Address</span>
+                    <span class="detail-value">${currentUser.email || 'N/A'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Phone Number</span>
+                    <span class="detail-value">${currentUser.phone || 'N/A'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Affiliation</span>
+                    <span class="detail-value">${currentUser.affiliation || 'N/A'}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Category</span>
+                    <span class="detail-value">${currentUser.category || 'N/A'}</span>
+                </div>
+            `;
+        }
+
+        // Check existing submission
+        function checkExistingSubmission() {
+            const submissions = JSON.parse(localStorage.getItem('paperSubmissions') || '[]');
+            const userSubmission = submissions.find(s => s.userId === currentUser.id);
+
+            if (userSubmission) {
+                displaySubmission(userSubmission);
+            }
+        }
+
+        // Display existing submission
+        function displaySubmission(submission) {
+            document.getElementById('statusCard').style.display = 'block';
+            document.getElementById('submissionForm').style.display = 'none';
+
+            const statusBadge = document.getElementById('statusBadge');
+            statusBadge.textContent = submission.status.toUpperCase();
+            statusBadge.className = `status-badge ${submission.status}`;
+
+            // Update progress
+            if (submission.status === 'accepted') {
+                updateProgress(100);
+                document.getElementById('step2').classList.add('completed');
+                document.getElementById('step3').classList.add('completed');
+                document.getElementById('step3').innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                document.getElementById('statusCard').style.borderTopColor = 'var(--success-green)';
+            } else if (submission.status === 'rejected') {
+                updateProgress(100);
+                document.getElementById('step2').classList.add('completed');
+                document.getElementById('step3').classList.add('completed');
+                document.getElementById('step3').style.background = 'var(--error-red)';
+                document.getElementById('step3').style.borderColor = 'var(--error-red)';
+                document.getElementById('step3').style.color = 'var(--white)';
+                document.getElementById('step3').innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>';
+                document.getElementById('statusCard').style.borderTopColor = 'var(--error-red)';
+            } else {
+                updateProgress(66);
+                document.getElementById('step2').classList.add('active');
+            }
+
+            // Display paper details
+            document.getElementById('paperFileName').textContent = submission.fileName;
+            document.getElementById('paperSubmissionDate').textContent = new Date(submission.submissionDate).toLocaleDateString();
+            document.getElementById('paperAbstract').textContent = submission.abstract || 'No abstract provided';
+
+            // Store for download
+            window.currentSubmission = submission;
+        }
+
+        // Update progress bar
+        function updateProgress(percent) {
+            document.getElementById('progressFill').style.width = percent + '%';
+        }
+
+        // Handle file selection
+        function handleFile(files) {
+            if (files.length === 0) return;
+
+            const file = files[0];
+            if (file.type !== 'application/pdf') {
+                alert('Please upload a PDF file');
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File size must be less than 10MB');
+                return;
+            }
+
+            selectedFile = file;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                selectedFile.data = e.target.result;
+                displayFilePreview(file);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Display file preview
+        function displayFilePreview(file) {
+            document.getElementById('previewName').textContent = file.name;
+            document.getElementById('previewSize').textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+            document.getElementById('filePreview').style.display = 'flex';
+        }
+
+        // Remove file
+        function removeFile() {
+            selectedFile = null;
+            document.getElementById('filePreview').style.display = 'none';
+            document.getElementById('fileInput').value = '';
+        }
+
+        // Submit paper
+        function submitPaper() {
+            const abstract = document.getElementById('abstract').value.trim();
+
+            if (!abstract) {
+                alert('Please enter an abstract');
+                return;
+            }
+
+            if (!selectedFile) {
+                alert('Please upload a PDF file');
+                return;
+            }
+
+            const submission = {
+                id: 'PAPER_' + Date.now(),
+                userId: currentUser.id,
+                userName: currentUser.fullName,
+                userEmail: currentUser.email,
+                paperFile: selectedFile.data,
+                fileName: selectedFile.name,
+                abstract: abstract,
+                submissionDate: new Date().toISOString(),
+                status: 'pending',
+                reviewedBy: null,
+                reviewDate: null
+            };
+
+            // Save to localStorage
+            const submissions = JSON.parse(localStorage.getItem('paperSubmissions') || '[]');
+            submissions.push(submission);
+            localStorage.setItem('paperSubmissions', JSON.stringify(submissions));
+
+            alert('Paper submitted successfully!');
+            displaySubmission(submission);
+        }
+
+        // Download paper
+        function downloadPaper() {
+            if (window.currentSubmission && window.currentSubmission.paperFile) {
+                const link = document.createElement('a');
+                link.href = window.currentSubmission.paperFile;
+                link.download = window.currentSubmission.fileName;
+                link.click();
+            }
+        }
+
+        // Logout
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('currentUser');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Drag and drop
+        const dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary-red)';
+            dropZone.style.background = 'var(--light-red)';
+        });
+
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--medium-gray)';
+            dropZone.style.background = 'var(--off-white)';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--medium-gray)';
+            dropZone.style.background = 'var(--off-white)';
+            handleFile(e.dataTransfer.files);
+        });
+    </script>
+</body>
+
+</html>

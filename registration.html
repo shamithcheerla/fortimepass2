@@ -1054,7 +1054,7 @@
     <header id="main-header">
         <nav class="navbar">
             <div class="logo">
-                <img src="sasi.png" alt="SASI Logo" class="logo-img" onerror="this.style.display='none';">
+                <img src="images/sasi.png" alt="SASI Logo" class="logo-img" onerror="this.style.display='none';">
                 SITE-EMAR <span>2026</span>
             </div>
 
@@ -1536,7 +1536,8 @@
                     </p>
                     <p style="font-size: 0.9rem; color: var(--text-gray); margin-bottom: 15px;">
                         The contributors are requested to send a soft copy of one page abstract in MS word format to
-                        <strong style="color: var(--primary-red);">first23@sasi.ac.in</strong> with the following
+                        <strong style="color: var(--primary-red);">convener.siteemar2026@sasi.ac.in</strong> with the
+                        following
                         specifications:
                     </p>
                     <ul style="font-size: 0.85rem; color: var(--text-gray); line-height: 1.8; padding-left: 20px;">
@@ -1547,6 +1548,25 @@
                         <li><strong>Maximum no. of words in abstract:</strong> 250</li>
                         <li><strong>Poster dimensions:</strong> 80 cm x 120 cm in vertical position</li>
                     </ul>
+
+                    <!-- Copyright Consent Form Section -->
+                    <p
+                        style="font-size: 0.9rem; color: var(--text-gray); line-height: 1.6; margin-top: 20px; margin-bottom: 10px;">
+                        All authors must submit a signed Copyright Consent Form along with their paper submission.
+                        Please download the form below, fill in the required details, sign it, and upload it during
+                        submission.
+                    </p>
+                    <button type="button" class="submit-btn"
+                        style="margin-top: 10px; background: linear-gradient(135deg, #D32F2F, #B71C1C); width: 100%; padding: 12px 20px; font-size: 0.9rem;"
+                        onclick="downloadCopyrightForm()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" style="margin-right: 8px;">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download Copyright Consent Form
+                    </button>
                 </div>
 
                 <div class="info-card">
@@ -1903,6 +1923,20 @@
             link.click();
             document.body.removeChild(link);
         }
+
+
+        // =========================================
+        // 2C. DOWNLOAD COPYRIGHT CONSENT FORM
+        // =========================================
+        function downloadCopyrightForm() {
+            const link = document.createElement('a');
+            link.href = 'Copyright Consent Form.doc';
+            link.download = 'Copyright Consent Form - SITE-EMAR 2026.doc';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
 
         // =========================================
         // 3. FILE UPLOAD - PAPER
